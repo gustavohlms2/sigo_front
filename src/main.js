@@ -5,6 +5,13 @@ import Landing from './components/Landing';
 import Signup from './components/Signup';
 import Login from './components/Login';
 
+import '../node_modules/bulma/css/bulma.css';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import { Datetime } from 'vue-datetime'
+// You need a specific loader for CSS files
+import 'vue-datetime/dist/vue-datetime.css'
+ 
+Vue.use(Datetime)
 Vue.use(VueRouter); //IMPORTANT
 
 const routes = [

@@ -1,9 +1,30 @@
 <template>
-  <div>
-    EMAIL: <input type="text" v-model="email"> <br/>
-    PASSWORD: <input type="password" v-model="password"> <br/>
-    <button @click="login">login</button>
-    {{ error }}
+  <div class="columns is-mobile ">
+    <div class="column is-half is-offset-one-quarter ">
+      <div style="margin-top:20%;padding:10px;" class="groove">
+        <div class="tile" style="margin: 10px;">
+          <p class="title" style="">SIGO - IndTexBr </p>
+        </div>
+        <div class="field">
+          <div class="control">
+            <input class="input is-primary is-rounded" type="text" v-model="email" placeholder="Email" >
+          </div>
+        </div>
+        <div class="field">
+          <div class="control ">
+            <input class="input is-primary is-rounded" type="password" v-model="password" placeholder="Password"> 
+          </div>
+        </div>
+        <div class="field center">
+          <div class="control" >
+            <button @click="login" class="button is-success is-large center" >Sign in</button>
+          </div>
+        </div>
+        <div class="center danger">
+          {{ error }}
+        </div>
+      </div>      
+    </div>
   </div>
 </template>
 <script>
@@ -35,9 +56,16 @@ export default {
         }, err => {
           console.log(err.response);
           this.error = err.response.data.error
+          this.$router.push('/'); // comentar
         })
     }
   }
 }
 </script>
 
+
+<style>
+    .groove {border-style: groove;}
+    .center { text-align: center; }
+    .danger { color: red; }
+</style>

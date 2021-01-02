@@ -6,8 +6,9 @@ const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const User = require('./models/User');
 
-mongoose.set('useCreateIndex', true);
-mongoose.connect("mongodb+srv://admin:admin123@auth-test.b7mv7.mongodb.net", { useNewUrlParser: true, useUnifiedTopology: true });
+// o inicial-- mongoose.connect('mongodb://admin:admin123@ds155616.mlab.com:55616/auth-sandbox');
+//mongoose.set('useCreateIndex', true);
+//mongoose.connect("mongodb+srv://admin:admin123@auth-test.b7mv7.mongodb.net", { useNewUrlParser: true, useUnifiedTopology: true });
 
 const app = express();
 app.use(cors());

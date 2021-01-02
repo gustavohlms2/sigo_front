@@ -9,18 +9,24 @@
     "server": "nodemon server.js"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.1",
     "axios": "^0.21.1",
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
     "bootstrap-vue": "^2.21.1",
+    "bulma": "^0.9.1",
     "core-js": "^3.6.5",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
+    "luxon": "^1.25.0",
     "mongoose": "^5.11.8",
     "sors": "^1.0.2",
     "vue": "^2.6.11",
-    "vue-router": "^3.4.9"
+    "vue-datetime": "^1.0.0-beta.14",
+    "vue-router": "^3.4.9",
+    "vuejs-datepicker": "^1.6.2",
+    "weekstart": "^1.0.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
