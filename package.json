@@ -6,6 +6,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "server": "nodemon server.js",
     "rabbit": "nodemon rabbit.js"
   },
@@ -40,6 +42,7 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
+    "gh-pages": "^3.1.0",
     "nodemon": "^2.0.6",
     "vue-template-compiler": "^2.6.11"
   },
