@@ -6,10 +6,12 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "server": "nodemon server.js"
+    "server": "nodemon server.js",
+    "rabbit": "nodemon rabbit.js"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.1",
+    "amqplib": "^0.6.0",
     "axios": "^0.21.1",
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
@@ -17,16 +19,19 @@
     "bulma": "^0.9.1",
     "core-js": "^3.6.5",
     "cors": "^2.8.5",
+    "dateformat": "^4.4.1",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "luxon": "^1.25.0",
-    "mongoose": "^5.11.8",
+    "mongoose": "^5.11.11",
+    "mongose": "0.0.2-security",
     "sors": "^1.0.2",
     "vue": "^2.6.11",
     "vue-datetime": "^1.0.0-beta.14",
     "vue-router": "^3.4.9",
     "vuejs-datepicker": "^1.6.2",
-    "weekstart": "^1.0.1"
+    "weekstart": "^1.0.1",
+    "xmlhttprequest": "^1.8.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
@@ -35,6 +40,7 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
+    "nodemon": "^2.0.6",
     "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {

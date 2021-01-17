@@ -1,9 +1,14 @@
 <template>
-  <div>
+   <div>
     <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
-        <a class="navbar-item" href="https://bulma.io">
-          <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
+        <a class="navbar-item" >
+          <div style="font-size:30px;">
+            <span class="icon-text has-text-success">
+              <i class="fab fa-periscope" width="112" height="28"></i>  
+              <strong>SIGO</strong>        
+            </span>
+          </div>
         </a>
 
         <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
@@ -67,18 +72,37 @@
           <div class="navbar-item">
             <div class="buttons">
               <a class="button  is-small is-primary">
-                <strong> Ana {{ name }} - {{ email }} ana@gmail.com </strong>
+                <strong> {{ name }} - {{ email }} </strong>
               </a>
-              <button @click="logout" class="button is-small is-light"> Sair </button>
+              <button @click="logout" class="button is-small is-light" ref="btn_deslogar" id="btn_deslogar"> Sair </button>
             </div>
           </div>
         </div>
       </div>
     </nav>
 
-      <Norma />
     <div v-if="this.opcaoComponente == 'G1'">
+      <Repositorio />
+    </div>
+    <div v-if="this.opcaoComponente == 'G2'">
       <Norma />
+    </div>
+
+    <div v-if="this.opcaoComponente == 'A1'">
+      <Acessor />
+    </div>
+    <div v-if="this.opcaoComponente == 'A2'">
+      <Contrato />
+    </div>
+
+    <div v-if="this.opcaoComponente == 'P1'">
+      <Operador />
+    </div>
+    <div v-if="this.opcaoComponente == 'P2'">
+      <Processo />
+    </div>
+    <div v-if="this.opcaoComponente == 'P3'">
+      <TipoProcesso />
     </div>
   </div>
 </template>
@@ -86,6 +110,12 @@
 
 import axios from 'axios';
 import Norma from '../components/gestao/Norma';
+import Repositorio from '../components/gestao/Repositorio';
+import Acessor from '../components/acessoria/Acessor';
+import Contrato from '../components/acessoria/Contrato';
+import Operador from '../components/processo/Operador';
+import Processo from '../components/processo/Processo';
+import TipoProcesso from '../components/processo/TipoProcesso';
 
 export default {
   name: 'Landing',
@@ -93,24 +123,34 @@ export default {
     return {
       name: '',
       email: '',
-      opcaoComponente: ''
+      opcaoComponente: '',
+      counterInterval: ''
     }
   },
   components:{
-    Norma
+    Norma,
+    Repositorio,
+    Acessor,
+    Contrato,
+    Operador,
+    Processo,
+    TipoProcesso
   },
   created() {
     //user is not authorized
-    //if (localStorage.getItem('token') === null) {
-    //  this.$router.push('/login');
-    //}
+    this.loginValid();
   },
   mounted() {
     axios.get('http://localhost:5000/user', { headers: { token: localStorage.getItem('token')}})
       .then(res => {
         this.name = res.data.user.name;
         this.email = res.data.user.email;
-      })
+      });
+
+    //axios.get('http://localhost:5000/standard'); //destroyed
+  },
+  beforeDestroy: function(){
+    clearInterval( this.counterInterval )
   },
   methods: {
     logout() {
@@ -119,7 +159,22 @@ export default {
     },
     selecionaComp: function(compEscolhido){
       this.opcaoComponente = compEscolhido;
-    }
+    },
+    isMobile() {
+        if( screen.width <= 760 ) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    },
+    loginValid() {
+      this.counterInterval = setInterval(function(){ 
+        if (localStorage.getItem('token') === null || ( new Date() > new Date(localStorage.getItem('expiresIn')) ) ) {
+          this.$refs.btn_deslogar.click();
+        }
+      }.bind(this), 300000);
+    }    
   }
 }
 </script>

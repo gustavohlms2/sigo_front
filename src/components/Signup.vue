@@ -7,13 +7,13 @@
         </div>
         <div class="field">
           <div class="control">
-            <input class="input is-primary is-rounded " type="text" v-model="nome" placeholder="Nome" >
+            <input class="input is-primary is-rounded " type="text" v-model="name" placeholder="Nome" >
           </div>
         </div>
         <div class="field">
           <div class="control">
             <p class="control has-icons-left">
-              <input class="input is-primary is-rounded" type="text" v-model="email" placeholder="Email" >
+              <input class="input is-primary is-rounded" type="email" v-model="email" placeholder="Email" v-on:blur="validaEmail()" >
               <span class="icon is-small is-left">
                 <i class="fas fa-envelope"></i>
               </span>
@@ -71,8 +71,14 @@ export default {
         }, err => {
           console.log(err.response)
           this.error = err.response.data.error
-          this.$router.push('/login'); // comentar
+          //this.$router.push('/login'); // comentar
         })
+    },
+    validaEmail() {
+      if( this.email==""  || this.email.indexOf('@')==-1  || this.email.indexOf('.')==-1 ){
+        alert( "Por favor, informe um E-MAIL válido!" );
+        return false;
+      }
     }
   }
 } 

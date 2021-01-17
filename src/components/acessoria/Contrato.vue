@@ -1,10 +1,10 @@
 <template>
     <div>
-        <div id="norma" class="groove center lista" v-if="isConnect">
+        <div id="contrato" class="groove center lista" v-if="isConnect">
             <nav class="breadcrumb" aria-label="breadcrumbs">
                 <ul>
                     <li class="is-active" ><a href="#">Buscar</a></li>
-                    <li><a href="#" v-on:click="normaAlterar = {}; isShowModalAlteracao = true;" >Novo</a></li>
+                    <li><a href="#" v-on:click="contratoAlterar = {}; isShowModalAlteracao = true;" >Novo</a></li>
                 </ul>
             </nav>
 
@@ -12,7 +12,7 @@
                 <div class="column">  </div>
                 <div class="column is-four-fifths">
                     <div class="field">
-                        <input v-model="txtBusca" type="text" class="input is-primary" placeholder="Buscar pelo título da norma" aria-label="Nome da norma" aria-describedby="button-addon">
+                        <input v-model="txtBusca" type="text" class="input is-primary" placeholder="Buscar pelo título da contrato" aria-label="Nome da contrato" aria-describedby="button-addon">
                     </div>
                 </div>
                 <div class="column">
@@ -22,29 +22,29 @@
 
             <div>
                 <div class="tile center" style="margin: 10px;">
-                    <p class="title" style=""> Normas Cadastradas </p>
+                    <p class="title" style=""> Contratos Cadastrados </p>
                 </div>
                 <table class="table" style="width: 100%;">
                     <thead>
                         <tr>
                             <th style="width: 10%;"><abbr title="ID">Cód</abbr></th>
-                            <th style="width: 30%;">Título</th>
-                            <th style="width: 20%;" class="is-hidden-mobile">Repositório</th>
-                            <th style="width: 20%;">Url</th>
+                            <th style="width: 30%;">Nome</th>
+                            <th style="width: 20%;">Empresa</th>
+                            <th style="width: 20%;" class="is-hidden-mobile">Valor</th>
                             <th style="width: 20%;">Ações</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="norma in filteredNormas" :key="norma.id">
-                            <td>{{norma.id}}</td>
-                            <td>{{norma.titulo}}</td>
-                            <td class="is-hidden-mobile">{{norma.idRepositorio}}</td>
-                            <td>{{norma.url}}</td>
+                        <tr v-for="contrato in filteredContratos" :key="contrato.id">
+                            <td>{{contrato.id}}</td>
+                            <td>{{contrato.nome}}</td>
+                            <td>{{contrato.empresa}}</td>
+                            <td class="is-hidden-mobile">{{contrato.valor}}</td>
                             <td>
-                                <button class="button is-warning modal-button lista" v-on:click="alterarNorma(norma); isShowModalAlteracao = true;">
+                                <button class="button is-warning modal-button lista" v-on:click="alterarContrato(contrato); isShowModalAlteracao = true;">
                                     Alterar
                                 </button>
-                                <button class="button is-danger modal-button lista" v-on:click="idExclusao = norma.id; isShowModalExclusao = true;">
+                                <button class="button is-danger modal-button lista" v-on:click="idExclusao = contrato.id; isShowModalExclusao = true;">
                                     Excluir
                                 </button>
                             </td>
@@ -57,71 +57,94 @@
                 <div class="modal-background"></div>
                 <div class="modal-card">
                     <header class="modal-card-head">
-                        <p class="modal-card-title">Norma</p>
+                        <p class="modal-card-title">Contrato</p>
                         <button class="delete" aria-label="close" v-on:click="isShowModalAlteracao = false"></button>
                     </header>
                     <section class="modal-card-body">
                         <div class="field is-horizontal">
-                            <div class="field-label is-normal">
-                                <label class="label">Título</label>
+                            <div class="field-label is-contratol">
+                                <label class="label">Nome</label>
                             </div>
                             <div class="field-body">
                                 <div class="field">
                                 <p class="control">
-                                    <input class="input is-primary" type="text" placeholder="Informe o título" v-model="normaAlterar.titulo">
+                                    <input class="input is-primary" type="text" placeholder="Informe o nome" v-model="contratoAlterar.nome">
                                 </p>
                                 </div>
                             </div>
                         </div>
 
                         <div class="field is-horizontal">
-                            <div class="field-label is-normal">
-                                <label class="label">Descrição</label>
+                            <div class="field-label is-contratol">
+                                <label class="label">Empresa</label>
                             </div>
                             <div class="field-body">
-                                <div style="width: 100%;">
-                                    <textarea class="textarea is-primary" placeholder="Descreva um resumo da norma" v-model="normaAlterar.descricao"></textarea>
+                                <div class="field">
+                                <p class="control">
+                                    <input class="input is-primary" type="text" placeholder="Informe a empresa" v-model="contratoAlterar.empresa">
+                                </p>
                                 </div>
                             </div>
                         </div>
 
                         <div class="field is-horizontal">
-                            <div class="field-label is-normal">
-                                <label class="label">Repositório</label>
+                            <div class="field-label is-contratol">
+                                <label class="label">Descrição</label>
+                            </div>
+                            <div class="field-body">
+                                <div style="width: 100%;">
+                                    <textarea class="textarea is-primary" placeholder="Descreva um resumo da contrato" v-model="contratoAlterar.descricao"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field is-horizontal">
+                            <div class="field-label is-contratol">
+                                <label class="label">Valor</label>
+                            </div>
+                            <div class="field-body">
+                                <div style="width: 100%;">
+                                    <input class="input is-primary" type="number" placeholder="Informe o valor" v-model="contratoAlterar.valor">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field is-horizontal">
+                            <div class="field-label is-contratol">
+                                <label class="label">URL</label>
+                            </div>
+                            <div class="field-body">
+                                <div class="field">
+                                <p class="control">
+                                    <input class="input is-primary" type="text" placeholder="Informe a url" v-model="contratoAlterar.url">
+                                </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field is-horizontal">
+                            <div class="field-label is-contratol">
+                                <label class="label">Acessor</label>
                             </div>
                             <div class="field-body">
                                 <div style="width: 100%;">
                                     <div class="select is-primary" style="width: 100%;">
-                                    <select v-model="normaAlterar.idRepositorio" style="width: 100%;">
-                                        <option v-for="repositorio in listaRepositorio" :value="repositorio.id" :key="repositorio.id">
-                                            {{ repositorio.nome }} 
+                                    <select v-model="contratoAlterar.idAcessor" style="width: 100%;">
+                                        <option v-for="acessor in listaAcessor" :value="acessor.id" :key="acessor.id">
+                                            {{ acessor.nome }} 
                                         </option>
                                     </select>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="field is-horizontal">
-                            <div class="field-label is-normal">
-                                <label class="label">URL</label>
-                            </div>
-                            <div class="field-body">
-                                <div class="field">
-                                <p class="control">
-                                    <input class="input is-primary" type="text" placeholder="Informe a url" v-model="normaAlterar.url" v-on:blur="isValidHttpUrl()">
-                                </p>
-                                </div>
-                            </div>
-                        </div>
-                        
                     <!--    
                         <div class="field is-horizontal">
-                            <div class="field-label is-normal">
+                            <div class="field-label is-contratol">
                                 <label class="label">Data</label>
                             </div>
                             <div class="field-body">
-                                <datetime datetime type="datetime" v-model="normaAlterar.data_criacao"></datetime>
+                                <datetime datetime type="datetime" v-model="contratoAlterar.data_criacao"></datetime>
                             </div>
                         </div>    
                     -->
@@ -168,23 +191,22 @@
 <script>
 import axios from 'axios';
 import urlAPI from '../../utilities/urlapi';
-//import { Datetime } from 'vue-datetime';
 
 export default {
-    name: 'Norma',  
+    name: 'Contrato',  
     components: {
   //      datetime: Datetime
     },  
-    created: function(){      
-        this.getNorma();
-        this.getRepositorio();
+    created: function(){       
+        this.getContrato();
+        this.getAcessor();        
     },
     data(){
         return {
-            normas: [],
-            filteredNormas: [],
-            normaAlterar: {},
-            listaRepositorio: [],
+            contratos: [],
+            filteredContratos: [],
+            contratoAlterar: {},
+            listaAcessor: [],
             txtBusca: '',
             idExclusao: '',
             isShowModalAlteracao: false,
@@ -201,55 +223,57 @@ export default {
     },
     methods: {
         buscar: function(){
-            this.filteredNormas = this.normas;
+            this.filteredContratos = this.contratos;
             if (this.txtBusca != '' && this.txtBusca != ' '){        
-                this.filteredNormas =  this.normas.filter(norma => norma.titulo.includes(this.txtBusca) );
+                this.filteredContratos =  this.contratos.filter(contrato => contrato.nome.includes(this.txtBusca) );
             }      
         },
         alterar: function(){
 
         },
-        getRepositorio(){
+        getAcessor(){
             var vm = this;
-            axios.get(urlAPI.REPOSITORIO).then(function(r){
-                vm.listaRepositorio = r.data.filter(repositorio => repositorio.indativo ); 
+            var url = urlAPI.ACESSOR;
+            axios.get(url).then(function(r){
+                vm.listaAcessor = r.data.filter(acessor => acessor.indativo );
                 vm.errors = [];
             }).catch(function (error) {
-                vm.listaRepositorio = [];                    
-                vm.errors = {'Erro': error.response };                  
+                vm.listaAcessor = [];                    
+                vm.errors = {'Erro': error.response };                
             }).finally(function () {
                 
             });
         },
-        getNorma(){
+        getContrato(){
             var vm = this;
-            axios.get(urlAPI.NORMA).then(function(r){
-                vm.normas = r.data.filter(norma => norma.indativo ); 
-                vm.filteredNormas = vm.normas;
+            var url = urlAPI.CONTRATO;
+            axios.get(url).then(function(r){
+                vm.contratos = r.data.filter(contrato => contrato.indativo ); 
+                vm.filteredContratos = vm.contratos;
             }).catch(function (error) {
-                vm.normas = [];
-                vm.filteredNormas = vm.normas;
+                vm.contratos = [];
+                vm.filteredContratos = vm.contratos;
                 vm.isConnect = ( ( error != undefined  ) ? ( error.message == 'Network Error' ? false : true ) : true );
                 vm.errors = ( ( error != undefined  ) ? {'Erro': error.response } : {} )
             });
         },
         getExcluir: function(){
             var vm = this;
-            var url = urlAPI.NORMA + this.idExclusao;
+            var url = urlAPI.CONTRATO + this.idExclusao;
             var dateFormat = require('dateformat');
 
-            var normaAlterar = this.filteredNormas.filter(norma => norma.id == this.idExclusao )[0];
-                normaAlterar.dataAlteracao = dateFormat(new Date(), "yyyy-mm-dd hh:MM:ss");
-                normaAlterar.indativo = false;
+            var contratoAlterar = this.filteredContratos.filter(contrato => contrato.id == this.idExclusao )[0];
+                contratoAlterar.dataAlteracao = dateFormat(new Date(), "yyyy-mm-dd h:MM:ss");
+                contratoAlterar.indativo = false;
             //axios.delete(url).then(function(r){
-            axios.put(url, normaAlterar).then(function(r){
+            axios.put(url, contratoAlterar).then(function(r){
                 console.log(r);
-                vm.normas = vm.deleteVetor(vm.normas);
-                vm.filteredNormas = vm.normas;
+                vm.contratos = vm.deleteVetor(vm.contratos);
+                vm.filteredContratos = vm.contratos;
                 vm.errors = [];
             }).catch(function (error) {
                     vm.errors = {'Erro': error.response };
-                    vm.normas = [];
+                    vm.contratos = [];
                     
             }).finally(function () {
                 
@@ -262,18 +286,18 @@ export default {
             });
             return arr;
         },
-        alterarNorma(f){
-            this.normaAlterar = JSON.parse(JSON.stringify(f));
+        alterarContrato(f){
+            this.contratoAlterar = JSON.parse(JSON.stringify(f));
         },
         salvarAlterar(){
             var vm = this;
-            var url = urlAPI.NORMA;
+            var url = urlAPI.CONTRATO;
             var dateFormat = require('dateformat');
-            if (this.normaAlterar.id != '' && this.normaAlterar.id != undefined ){
-                url = url + this.normaAlterar.id;
-                this.normaAlterar.dataAlteracao = dateFormat(new Date(), "yyyy-mm-dd hh:MM:ss");
-                axios.put(url, this.normaAlterar).then(function(){                    
-                    vm.getNorma(); // buscar todas
+            if (this.contratoAlterar.id != '' && this.contratoAlterar.id != undefined ){
+                url = url + this.contratoAlterar.id;
+                this.contratoAlterar.dataAlteracao = dateFormat(new Date(), "yyyy-mm-dd h:MM:ss");
+                axios.put(url, this.contratoAlterar).then(function(){                    
+                    vm.getContrato(); // buscar todas
                     vm.isShowModalAlteracao = false;
                     vm.errors = [];
                 }).catch(function (error) {
@@ -282,10 +306,10 @@ export default {
                     
                 });
             }else{
-                this.normaAlterar.dataCriacao = dateFormat(new Date(), "yyyy-mm-dd hh:MM:ss");
-                this.normaAlterar.indativo = true;
-                axios.post(url, this.normaAlterar).then(function(){
-                    vm.getNorma(); // buscar todas
+                this.contratoAlterar.dataCriacao = dateFormat(new Date(), "yyyy-mm-dd hh:MM:ss");
+                this.contratoAlterar.indativo = true;
+                axios.post(url, this.contratoAlterar).then(function(){
+                    vm.getContrato(); // buscar todas
                     vm.isShowModalAlteracao = false;
                     vm.errors = [];
                 }).catch(function (error) {
@@ -295,52 +319,43 @@ export default {
                 });
             }
         },
-        descartarAlteracoesNorma(){
-            this.normaAlterar = {};
+        descartarAlteracoesContrato(){
+            this.contratoAlterar = {};
         },
         validaFormulario(){
-            if (this.normaAlterar.titulo && this.normaAlterar.descricao && this.normaAlterar.url && this.normaAlterar.idRepositorio) {                
+            if (this.contratoAlterar.nome && this.contratoAlterar.empresa && this.contratoAlterar.descricao && this.contratoAlterar.url && this.contratoAlterar.valor && this.contratoAlterar.idAcessor ) {                
                 this.salvarAlterar();
             }
 
             this.errors = [];
 
-            if (!this.normaAlterar.titulo) {
-                this.errors.push('Informe o titulo.');
+            if (!this.contratoAlterar.nome) {
+                this.errors.push('Informe o nome.');
             }
-            if (!this.normaAlterar.descricao) {
+            if (!this.contratoAlterar.empresa) {
+                this.errors.push('Informe a empresa.');
+            }
+            if (!this.contratoAlterar.descricao) {
                 this.errors.push('Informe a descricao.');
             }
-            if (!this.normaAlterar.url) {
+            if (!this.contratoAlterar.url) {
                 this.errors.push('Informe a url.');
             }
-            if (!this.normaAlterar.idRepositorio) {
-                this.errors.push('Informe o repositório.');
+            if (!this.contratoAlterar.valor) {
+                this.errors.push('Informe o valor.');
             }
-        },
-        isValidHttpUrl() {
-            var url = '';
-            if (this.normaAlterar.url){
-                try {
-                    url = new URL(this.normaAlterar.url);
-                } catch (_) {
-                    alert( "Por favor, informe uma URL válida!" );
-                    this.normaAlterar.url = '';
-                    return false;  
-                }
+            if (!this.contratoAlterar.idAcessor) {
+                this.errors.push('Informe o acessor.');
+            }
 
-                return url.protocol === "http:" || url.protocol === "https:";
-            }else{
-                return false;
-            }
         }
     },
     computed: {
         resultadoBusca: function(){
             if (this.txtBusca == '' || this.txtBusca == ' '){
-                return this.normas;
+                return this.contratos;
             }else{
-                return this.normas.filter(norma => norma.titulo.includes(this.txtBusca) );
+                return this.contratos.filter(contrato => contrato.nome.includes(this.txtBusca) );
             }
         }
     }

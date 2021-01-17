@@ -1,10 +1,10 @@
 <template>
     <div>
-        <div id="norma" class="groove center lista" v-if="isConnect">
+        <div id="operador" class="groove center lista" v-if="isConnect">
             <nav class="breadcrumb" aria-label="breadcrumbs">
                 <ul>
                     <li class="is-active" ><a href="#">Buscar</a></li>
-                    <li><a href="#" v-on:click="normaAlterar = {}; isShowModalAlteracao = true;" >Novo</a></li>
+                    <li><a href="#" v-on:click="operadorAlterar = {}; isShowModalAlteracao = true;" >Novo</a></li>
                 </ul>
             </nav>
 
@@ -12,7 +12,7 @@
                 <div class="column">  </div>
                 <div class="column is-four-fifths">
                     <div class="field">
-                        <input v-model="txtBusca" type="text" class="input is-primary" placeholder="Buscar pelo título da norma" aria-label="Nome da norma" aria-describedby="button-addon">
+                        <input v-model="txtBusca" type="text" class="input is-primary" placeholder="Buscar pelo título da operador" aria-label="Nome da operador" aria-describedby="button-addon">
                     </div>
                 </div>
                 <div class="column">
@@ -22,29 +22,29 @@
 
             <div>
                 <div class="tile center" style="margin: 10px;">
-                    <p class="title" style=""> Normas Cadastradas </p>
+                    <p class="title" style=""> Operadores Cadastrados </p>
                 </div>
                 <table class="table" style="width: 100%;">
                     <thead>
                         <tr>
-                            <th style="width: 10%;"><abbr title="ID">Cód</abbr></th>
-                            <th style="width: 30%;">Título</th>
-                            <th style="width: 20%;" class="is-hidden-mobile">Repositório</th>
-                            <th style="width: 20%;">Url</th>
+                            <th style="width: 10%;" class="is-hidden-mobile"><abbr title="ID">Cód</abbr></th>
+                            <th style="width: 25%;">Nome</th>
+                            <th style="width: 25%;">Cargo</th>
+                            <th style="width: 20%;" class="is-hidden-mobile">Telefone</th>
                             <th style="width: 20%;">Ações</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="norma in filteredNormas" :key="norma.id">
-                            <td>{{norma.id}}</td>
-                            <td>{{norma.titulo}}</td>
-                            <td class="is-hidden-mobile">{{norma.idRepositorio}}</td>
-                            <td>{{norma.url}}</td>
+                        <tr v-for="operador in filteredOperadors" :key="operador.id">
+                            <td class="is-hidden-mobile">{{operador.id}}</td>
+                            <td>{{operador.nome}}</td>
+                            <td>{{operador.cargo}}</td>
+                            <td class="is-hidden-mobile">{{operador.telefone}}</td>
                             <td>
-                                <button class="button is-warning modal-button lista" v-on:click="alterarNorma(norma); isShowModalAlteracao = true;">
+                                <button class="button is-warning modal-button lista" v-on:click="alterarOperador(operador); isShowModalAlteracao = true;">
                                     Alterar
                                 </button>
-                                <button class="button is-danger modal-button lista" v-on:click="idExclusao = norma.id; isShowModalExclusao = true;">
+                                <button class="button is-danger modal-button lista" v-on:click="idExclusao = operador.id; isShowModalExclusao = true;">
                                     Excluir
                                 </button>
                             </td>
@@ -57,59 +57,57 @@
                 <div class="modal-background"></div>
                 <div class="modal-card">
                     <header class="modal-card-head">
-                        <p class="modal-card-title">Norma</p>
+                        <p class="modal-card-title">Operador</p>
                         <button class="delete" aria-label="close" v-on:click="isShowModalAlteracao = false"></button>
                     </header>
                     <section class="modal-card-body">
                         <div class="field is-horizontal">
-                            <div class="field-label is-normal">
-                                <label class="label">Título</label>
+                            <div class="field-label is-operadorl">
+                                <label class="label">Nome</label>
                             </div>
                             <div class="field-body">
                                 <div class="field">
                                 <p class="control">
-                                    <input class="input is-primary" type="text" placeholder="Informe o título" v-model="normaAlterar.titulo">
+                                    <input class="input is-primary" type="text" placeholder="Informe o nome" v-model="operadorAlterar.nome">
                                 </p>
                                 </div>
                             </div>
                         </div>
 
                         <div class="field is-horizontal">
-                            <div class="field-label is-normal">
-                                <label class="label">Descrição</label>
-                            </div>
-                            <div class="field-body">
-                                <div style="width: 100%;">
-                                    <textarea class="textarea is-primary" placeholder="Descreva um resumo da norma" v-model="normaAlterar.descricao"></textarea>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="field is-horizontal">
-                            <div class="field-label is-normal">
-                                <label class="label">Repositório</label>
-                            </div>
-                            <div class="field-body">
-                                <div style="width: 100%;">
-                                    <div class="select is-primary" style="width: 100%;">
-                                    <select v-model="normaAlterar.idRepositorio" style="width: 100%;">
-                                        <option v-for="repositorio in listaRepositorio" :value="repositorio.id" :key="repositorio.id">
-                                            {{ repositorio.nome }} 
-                                        </option>
-                                    </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="field is-horizontal">
-                            <div class="field-label is-normal">
-                                <label class="label">URL</label>
+                            <div class="field-label is-operadorl">
+                                <label class="label">Cargo</label>
                             </div>
                             <div class="field-body">
                                 <div class="field">
                                 <p class="control">
-                                    <input class="input is-primary" type="text" placeholder="Informe a url" v-model="normaAlterar.url" v-on:blur="isValidHttpUrl()">
+                                    <input class="input is-primary" type="text" placeholder="Informe o cargo" v-model="operadorAlterar.cargo">
+                                </p>
+                                </div>
+                            </div>                            
+                        </div>
+
+                        <div class="field is-horizontal">
+                            <div class="field-label is-operadorl">
+                                <label class="label">Email</label>
+                            </div>
+                            <div class="field-body">
+                                <div class="field">
+                                <p class="control">
+                                    <input class="input is-primary" v-on:blur="validaEmail()" type="email" placeholder="Informe o email" v-model="operadorAlterar.email">
+                                </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field is-horizontal">
+                            <div class="field-label is-operadorl">
+                                <label class="label">Telefone</label>
+                            </div>
+                            <div class="field-body">
+                                <div class="field">
+                                <p class="control">
+                                    <input class="input is-primary" type="text" placeholder="Informe o telefone" v-model="operadorAlterar.telefone" v-on:blur="validaTelefone()" minlength="8" maxlength="14" v-on:keypress="isNumber($event)" >
                                 </p>
                                 </div>
                             </div>
@@ -117,11 +115,11 @@
                         
                     <!--    
                         <div class="field is-horizontal">
-                            <div class="field-label is-normal">
+                            <div class="field-label is-operadorl">
                                 <label class="label">Data</label>
                             </div>
                             <div class="field-body">
-                                <datetime datetime type="datetime" v-model="normaAlterar.data_criacao"></datetime>
+                                <datetime datetime type="datetime" v-model="operadorAlterar.data_criacao"></datetime>
                             </div>
                         </div>    
                     -->
@@ -159,7 +157,7 @@
                 </div>
             </div>
         </div>
-        <div id="norma" class="groove center lista" v-else>
+        <div id="operador" class="groove center lista" v-else>
             <h1> SEM CONEXÃO AO SEVIDOR </h1>
         </div>
     </div>
@@ -171,20 +169,18 @@ import urlAPI from '../../utilities/urlapi';
 //import { Datetime } from 'vue-datetime';
 
 export default {
-    name: 'Norma',  
+    name: 'Operador',  
     components: {
   //      datetime: Datetime
     },  
-    created: function(){      
-        this.getNorma();
-        this.getRepositorio();
+    created: function(){       
+        this.getOperador();        
     },
     data(){
         return {
-            normas: [],
-            filteredNormas: [],
-            normaAlterar: {},
-            listaRepositorio: [],
+            operadors: [],
+            filteredOperadors: [],
+            operadorAlterar: {},
             txtBusca: '',
             idExclusao: '',
             isShowModalAlteracao: false,
@@ -201,55 +197,44 @@ export default {
     },
     methods: {
         buscar: function(){
-            this.filteredNormas = this.normas;
+            this.filteredOperadors = this.operadors;
             if (this.txtBusca != '' && this.txtBusca != ' '){        
-                this.filteredNormas =  this.normas.filter(norma => norma.titulo.includes(this.txtBusca) );
+                this.filteredOperadors =  this.operadors.filter(operador => operador.nome.includes(this.txtBusca) );
             }      
         },
         alterar: function(){
 
-        },
-        getRepositorio(){
+        },        
+        getOperador(){
             var vm = this;
-            axios.get(urlAPI.REPOSITORIO).then(function(r){
-                vm.listaRepositorio = r.data.filter(repositorio => repositorio.indativo ); 
-                vm.errors = [];
+            var url = urlAPI.OPERADOR;
+            axios.get(url).then(function(r){
+                vm.operadors = r.data.filter(operador => operador.indativo ); 
+                vm.filteredOperadors = vm.operadors;
             }).catch(function (error) {
-                vm.listaRepositorio = [];                    
-                vm.errors = {'Erro': error.response };                  
-            }).finally(function () {
-                
-            });
-        },
-        getNorma(){
-            var vm = this;
-            axios.get(urlAPI.NORMA).then(function(r){
-                vm.normas = r.data.filter(norma => norma.indativo ); 
-                vm.filteredNormas = vm.normas;
-            }).catch(function (error) {
-                vm.normas = [];
-                vm.filteredNormas = vm.normas;
+                vm.operadors = [];
+                vm.filteredOperadors = vm.operadors;
                 vm.isConnect = ( ( error != undefined  ) ? ( error.message == 'Network Error' ? false : true ) : true );
                 vm.errors = ( ( error != undefined  ) ? {'Erro': error.response } : {} )
             });
         },
         getExcluir: function(){
             var vm = this;
-            var url = urlAPI.NORMA + this.idExclusao;
+            var url = urlAPI.OPERADOR + this.idExclusao;
             var dateFormat = require('dateformat');
 
-            var normaAlterar = this.filteredNormas.filter(norma => norma.id == this.idExclusao )[0];
-                normaAlterar.dataAlteracao = dateFormat(new Date(), "yyyy-mm-dd hh:MM:ss");
-                normaAlterar.indativo = false;
+            var operadorAlterar = this.filteredOperadors.filter(operador => operador.id == this.idExclusao )[0];
+                operadorAlterar.dataAlteracao = dateFormat(new Date(), "yyyy-mm-dd hh:MM:ss");
+                operadorAlterar.indativo = false;
             //axios.delete(url).then(function(r){
-            axios.put(url, normaAlterar).then(function(r){
+            axios.put(url, operadorAlterar).then(function(r){
                 console.log(r);
-                vm.normas = vm.deleteVetor(vm.normas);
-                vm.filteredNormas = vm.normas;
+                vm.operadors = vm.deleteVetor(vm.operadors);
+                vm.filteredOperadors = vm.operadors;
                 vm.errors = [];
             }).catch(function (error) {
                     vm.errors = {'Erro': error.response };
-                    vm.normas = [];
+                    vm.operadors = [];
                     
             }).finally(function () {
                 
@@ -262,18 +247,18 @@ export default {
             });
             return arr;
         },
-        alterarNorma(f){
-            this.normaAlterar = JSON.parse(JSON.stringify(f));
+        alterarOperador(f){
+            this.operadorAlterar = JSON.parse(JSON.stringify(f));
         },
         salvarAlterar(){
             var vm = this;
-            var url = urlAPI.NORMA;
+            var url = urlAPI.OPERADOR;
             var dateFormat = require('dateformat');
-            if (this.normaAlterar.id != '' && this.normaAlterar.id != undefined ){
-                url = url + this.normaAlterar.id;
-                this.normaAlterar.dataAlteracao = dateFormat(new Date(), "yyyy-mm-dd hh:MM:ss");
-                axios.put(url, this.normaAlterar).then(function(){                    
-                    vm.getNorma(); // buscar todas
+            if (this.operadorAlterar.id != '' && this.operadorAlterar.id != undefined ){
+                url = url + this.operadorAlterar.id;
+                this.operadorAlterar.dataAlteracao = dateFormat(new Date(), "yyyy-mm-dd hh:MM:ss");
+                axios.put(url, this.operadorAlterar).then(function(){                    
+                    vm.getOperador(); // buscar todas
                     vm.isShowModalAlteracao = false;
                     vm.errors = [];
                 }).catch(function (error) {
@@ -282,10 +267,10 @@ export default {
                     
                 });
             }else{
-                this.normaAlterar.dataCriacao = dateFormat(new Date(), "yyyy-mm-dd hh:MM:ss");
-                this.normaAlterar.indativo = true;
-                axios.post(url, this.normaAlterar).then(function(){
-                    vm.getNorma(); // buscar todas
+                this.operadorAlterar.dataCriacao = dateFormat(new Date(), "yyyy-mm-dd hh:MM:ss");
+                this.operadorAlterar.indativo = true;
+                axios.post(url, this.operadorAlterar).then(function(){
+                    vm.getOperador(); // buscar todas
                     vm.isShowModalAlteracao = false;
                     vm.errors = [];
                 }).catch(function (error) {
@@ -295,52 +280,59 @@ export default {
                 });
             }
         },
-        descartarAlteracoesNorma(){
-            this.normaAlterar = {};
+        descartarAlteracoesOperador(){
+            this.operadorAlterar = {};
         },
         validaFormulario(){
-            if (this.normaAlterar.titulo && this.normaAlterar.descricao && this.normaAlterar.url && this.normaAlterar.idRepositorio) {                
+            if (this.operadorAlterar.nome && this.operadorAlterar.email && this.operadorAlterar.cargo && this.operadorAlterar.telefone) {                
                 this.salvarAlterar();
             }
 
             this.errors = [];
 
-            if (!this.normaAlterar.titulo) {
-                this.errors.push('Informe o titulo.');
+            if (!this.operadorAlterar.nome) {
+                this.errors.push('Informe o nome.');
             }
-            if (!this.normaAlterar.descricao) {
-                this.errors.push('Informe a descricao.');
+            if (!this.operadorAlterar.email) {
+                this.errors.push('Informe o email.');
             }
-            if (!this.normaAlterar.url) {
-                this.errors.push('Informe a url.');
+            if (!this.operadorAlterar.cargo) {
+                this.errors.push('Informe a cargo.');
             }
-            if (!this.normaAlterar.idRepositorio) {
-                this.errors.push('Informe o repositório.');
+            if (!this.operadorAlterar.telefone) {
+                this.errors.push('Informe o telefone.');
             }
-        },
-        isValidHttpUrl() {
-            var url = '';
-            if (this.normaAlterar.url){
-                try {
-                    url = new URL(this.normaAlterar.url);
-                } catch (_) {
-                    alert( "Por favor, informe uma URL válida!" );
-                    this.normaAlterar.url = '';
-                    return false;  
-                }
 
-                return url.protocol === "http:" || url.protocol === "https:";
-            }else{
+        },
+        isNumber(e) {
+            let char = String.fromCharCode(e.keyCode);
+            if (/^[0-9]+$/.test(char)) return true;
+            else e.preventDefault();
+        },
+        validaEmail() {
+            if( this.operadorAlterar.email==""  || this.operadorAlterar.email.indexOf('@')==-1  || this.operadorAlterar.email.indexOf('.')==-1 ){
+                this.operadorAlterar.email = '';
+                alert( "Por favor, informe um E-MAIL válido!" );
                 return false;
             }
+            return true
+        },
+        validaTelefone() {
+            if( this.operadorAlterar.telefone.length < 8  ){
+                this.operadorAlterar.telefone = '';
+                alert( "Por favor, informe um telefone válido!" );
+                return false;
+            }  
+            return true;
         }
+
     },
     computed: {
         resultadoBusca: function(){
             if (this.txtBusca == '' || this.txtBusca == ' '){
-                return this.normas;
+                return this.operadors;
             }else{
-                return this.normas.filter(norma => norma.titulo.includes(this.txtBusca) );
+                return this.operadors.filter(operador => operador.nome.includes(this.txtBusca) );
             }
         }
     }

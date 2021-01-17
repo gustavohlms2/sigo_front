@@ -1,10 +1,10 @@
 <template>
     <div>
-        <div id="norma" class="groove center lista" v-if="isConnect">
+        <div id="acessor" class="groove center lista" v-if="isConnect">
             <nav class="breadcrumb" aria-label="breadcrumbs">
                 <ul>
                     <li class="is-active" ><a href="#">Buscar</a></li>
-                    <li><a href="#" v-on:click="normaAlterar = {}; isShowModalAlteracao = true;" >Novo</a></li>
+                    <li><a href="#" v-on:click="acessorAlterar = {}; isShowModalAlteracao = true;" >Novo</a></li>
                 </ul>
             </nav>
 
@@ -12,7 +12,7 @@
                 <div class="column">  </div>
                 <div class="column is-four-fifths">
                     <div class="field">
-                        <input v-model="txtBusca" type="text" class="input is-primary" placeholder="Buscar pelo título da norma" aria-label="Nome da norma" aria-describedby="button-addon">
+                        <input v-model="txtBusca" type="text" class="input is-primary" placeholder="Buscar pelo título da acessor" aria-label="Nome da acessor" aria-describedby="button-addon">
                     </div>
                 </div>
                 <div class="column">
@@ -22,29 +22,29 @@
 
             <div>
                 <div class="tile center" style="margin: 10px;">
-                    <p class="title" style=""> Normas Cadastradas </p>
+                    <p class="title" style=""> Acessores Cadastrados </p>
                 </div>
                 <table class="table" style="width: 100%;">
                     <thead>
                         <tr>
                             <th style="width: 10%;"><abbr title="ID">Cód</abbr></th>
-                            <th style="width: 30%;">Título</th>
-                            <th style="width: 20%;" class="is-hidden-mobile">Repositório</th>
-                            <th style="width: 20%;">Url</th>
+                            <th style="width: 30%;">Nome</th>
+                            <th style="width: 20%;">Descrição</th>
+                            <th style="width: 20%;" class="is-hidden-mobile">Telefone</th>
                             <th style="width: 20%;">Ações</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="norma in filteredNormas" :key="norma.id">
-                            <td>{{norma.id}}</td>
-                            <td>{{norma.titulo}}</td>
-                            <td class="is-hidden-mobile">{{norma.idRepositorio}}</td>
-                            <td>{{norma.url}}</td>
+                        <tr v-for="acessor in filteredAcessores" :key="acessor.id">
+                            <td>{{acessor.id}}</td>
+                            <td>{{acessor.nome}}</td>
+                            <td>{{acessor.descricao}}</td>
+                            <td class="is-hidden-mobile">{{acessor.telefone}}</td>
                             <td>
-                                <button class="button is-warning modal-button lista" v-on:click="alterarNorma(norma); isShowModalAlteracao = true;">
+                                <button class="button is-warning modal-button lista" v-on:click="alterarAcessor(acessor); isShowModalAlteracao = true;">
                                     Alterar
                                 </button>
-                                <button class="button is-danger modal-button lista" v-on:click="idExclusao = norma.id; isShowModalExclusao = true;">
+                                <button class="button is-danger modal-button lista" v-on:click="idExclusao = acessor.id; isShowModalExclusao = true;">
                                     Excluir
                                 </button>
                             </td>
@@ -57,75 +57,73 @@
                 <div class="modal-background"></div>
                 <div class="modal-card">
                     <header class="modal-card-head">
-                        <p class="modal-card-title">Norma</p>
+                        <p class="modal-card-title">Acessor</p>
                         <button class="delete" aria-label="close" v-on:click="isShowModalAlteracao = false"></button>
                     </header>
                     <section class="modal-card-body">
                         <div class="field is-horizontal">
-                            <div class="field-label is-normal">
-                                <label class="label">Título</label>
+                            <div class="field-label is-acessorl">
+                                <label class="label">Nome</label>
                             </div>
                             <div class="field-body">
                                 <div class="field">
                                 <p class="control">
-                                    <input class="input is-primary" type="text" placeholder="Informe o título" v-model="normaAlterar.titulo">
+                                    <input class="input is-primary" type="text" placeholder="Informe o título" v-model="acessorAlterar.nome">
                                 </p>
                                 </div>
                             </div>
                         </div>
 
                         <div class="field is-horizontal">
-                            <div class="field-label is-normal">
-                                <label class="label">Descrição</label>
+                            <div class="field-label is-acessorl">
+                                <label class="label">Descriçao</label>
                             </div>
                             <div class="field-body">
                                 <div style="width: 100%;">
-                                    <textarea class="textarea is-primary" placeholder="Descreva um resumo da norma" v-model="normaAlterar.descricao"></textarea>
+                                    <textarea class="textarea is-primary" placeholder="Descreva um resumo da acessor" v-model="acessorAlterar.descricao"></textarea>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="field is-horizontal">
-                            <div class="field-label is-normal">
-                                <label class="label">Repositório</label>
-                            </div>
-                            <div class="field-body">
-                                <div style="width: 100%;">
-                                    <div class="select is-primary" style="width: 100%;">
-                                    <select v-model="normaAlterar.idRepositorio" style="width: 100%;">
-                                        <option v-for="repositorio in listaRepositorio" :value="repositorio.id" :key="repositorio.id">
-                                            {{ repositorio.nome }} 
-                                        </option>
-                                    </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="field is-horizontal">
-                            <div class="field-label is-normal">
-                                <label class="label">URL</label>
+                        <div class="field is-horizontal" v-if="!this.acessorAlterar.cnpj">
+                            <div class="field-label is-acessorl">
+                                <label class="label">CPF</label>
                             </div>
                             <div class="field-body">
                                 <div class="field">
                                 <p class="control">
-                                    <input class="input is-primary" type="text" placeholder="Informe a url" v-model="normaAlterar.url" v-on:blur="isValidHttpUrl()">
+                                    <input class="input is-primary" type="number" placeholder="Informe o cpf" v-model="acessorAlterar.cpf">
                                 </p>
                                 </div>
                             </div>
                         </div>
-                        
-                    <!--    
-                        <div class="field is-horizontal">
-                            <div class="field-label is-normal">
-                                <label class="label">Data</label>
+
+                        <div class="field is-horizontal" v-if="!this.acessorAlterar.cpf">
+                            <div class="field-label is-acessorl">
+                                <label class="label">CNPJ</label>
                             </div>
                             <div class="field-body">
-                                <datetime datetime type="datetime" v-model="normaAlterar.data_criacao"></datetime>
+                                <div class="field">
+                                <p class="control">
+                                    <input class="input is-primary" type="number" placeholder="Informe o cnpj" v-model="acessorAlterar.cnpj">
+                                </p>
+                                </div>
                             </div>
-                        </div>    
-                    -->
+                        </div>
 
+                        <div class="field is-horizontal">
+                            <div class="field-label is-acessorl">
+                                <label class="label">Telefone</label>
+                            </div>
+                            <div class="field-body">
+                                <div class="field">
+                                <p class="control">
+                                    <input class="input is-primary" type="number" placeholder="Informe o telefone" v-model="acessorAlterar.telefone">
+                                </p>
+                                </div>
+                            </div>
+                        </div>
+                  
                     <p v-if="this.errors.length">
                         <b>Por favor, corrija o(s) seguinte(s) erro(s):</b>
                         <ul>
@@ -171,20 +169,18 @@ import urlAPI from '../../utilities/urlapi';
 //import { Datetime } from 'vue-datetime';
 
 export default {
-    name: 'Norma',  
+    name: 'Acessor',  
     components: {
   //      datetime: Datetime
     },  
-    created: function(){      
-        this.getNorma();
-        this.getRepositorio();
+    created: function(){     
+        this.getAcessor();
     },
     data(){
         return {
-            normas: [],
-            filteredNormas: [],
-            normaAlterar: {},
-            listaRepositorio: [],
+            acessores: [],
+            filteredAcessores: [],
+            acessorAlterar: {},
             txtBusca: '',
             idExclusao: '',
             isShowModalAlteracao: false,
@@ -201,55 +197,43 @@ export default {
     },
     methods: {
         buscar: function(){
-            this.filteredNormas = this.normas;
+            this.filteredAcessores = this.acessores;
             if (this.txtBusca != '' && this.txtBusca != ' '){        
-                this.filteredNormas =  this.normas.filter(norma => norma.titulo.includes(this.txtBusca) );
+                this.filteredAcessores =  this.acessores.filter(acessor => acessor.nome.includes(this.txtBusca) );
             }      
         },
         alterar: function(){
 
-        },
-        getRepositorio(){
+        },       
+        getAcessor(){
             var vm = this;
-            axios.get(urlAPI.REPOSITORIO).then(function(r){
-                vm.listaRepositorio = r.data.filter(repositorio => repositorio.indativo ); 
-                vm.errors = [];
+            axios.get(urlAPI.ACESSOR).then(function(r){
+                vm.acessores = r.data.filter(acessor => acessor.indativo ); 
+                vm.filteredAcessores = vm.acessores;
             }).catch(function (error) {
-                vm.listaRepositorio = [];                    
-                vm.errors = {'Erro': error.response };                  
-            }).finally(function () {
-                
-            });
-        },
-        getNorma(){
-            var vm = this;
-            axios.get(urlAPI.NORMA).then(function(r){
-                vm.normas = r.data.filter(norma => norma.indativo ); 
-                vm.filteredNormas = vm.normas;
-            }).catch(function (error) {
-                vm.normas = [];
-                vm.filteredNormas = vm.normas;
+                vm.acessores = [];
+                vm.filteredAcessores = vm.acessores;
                 vm.isConnect = ( ( error != undefined  ) ? ( error.message == 'Network Error' ? false : true ) : true );
                 vm.errors = ( ( error != undefined  ) ? {'Erro': error.response } : {} )
             });
         },
         getExcluir: function(){
             var vm = this;
-            var url = urlAPI.NORMA + this.idExclusao;
+            var url = urlAPI.ACESSOR + this.idExclusao;
             var dateFormat = require('dateformat');
 
-            var normaAlterar = this.filteredNormas.filter(norma => norma.id == this.idExclusao )[0];
-                normaAlterar.dataAlteracao = dateFormat(new Date(), "yyyy-mm-dd hh:MM:ss");
-                normaAlterar.indativo = false;
+            var acessorAlterar = this.filteredAcessores.filter(acessor => acessor.id == this.idExclusao )[0];
+                acessorAlterar.dataAlteracao = dateFormat(new Date(), "yyyy-mm-dd hh:MM:ss");
+                acessorAlterar.indativo = false;
             //axios.delete(url).then(function(r){
-            axios.put(url, normaAlterar).then(function(r){
+            axios.put(url, acessorAlterar).then(function(r){
                 console.log(r);
-                vm.normas = vm.deleteVetor(vm.normas);
-                vm.filteredNormas = vm.normas;
+                vm.acessores = vm.deleteVetor(vm.acessores);
+                vm.filteredAcessores = vm.acessores;
                 vm.errors = [];
             }).catch(function (error) {
                     vm.errors = {'Erro': error.response };
-                    vm.normas = [];
+                    vm.acessores = [];
                     
             }).finally(function () {
                 
@@ -262,18 +246,18 @@ export default {
             });
             return arr;
         },
-        alterarNorma(f){
-            this.normaAlterar = JSON.parse(JSON.stringify(f));
+        alterarAcessor(f){
+            this.acessorAlterar = JSON.parse(JSON.stringify(f));
         },
         salvarAlterar(){
             var vm = this;
-            var url = urlAPI.NORMA;
+            var url = urlAPI.ACESSOR;
             var dateFormat = require('dateformat');
-            if (this.normaAlterar.id != '' && this.normaAlterar.id != undefined ){
-                url = url + this.normaAlterar.id;
-                this.normaAlterar.dataAlteracao = dateFormat(new Date(), "yyyy-mm-dd hh:MM:ss");
-                axios.put(url, this.normaAlterar).then(function(){                    
-                    vm.getNorma(); // buscar todas
+            if (this.acessorAlterar.id != '' && this.acessorAlterar.id != undefined ){
+                url = url + this.acessorAlterar.id;
+                this.acessorAlterar.dataAlteracao = dateFormat(new Date(), "yyyy-mm-dd hh:MM:ss");
+                axios.put(url, this.acessorAlterar).then(function(){                    
+                    vm.getAcessor(); // buscar todas
                     vm.isShowModalAlteracao = false;
                     vm.errors = [];
                 }).catch(function (error) {
@@ -282,10 +266,10 @@ export default {
                     
                 });
             }else{
-                this.normaAlterar.dataCriacao = dateFormat(new Date(), "yyyy-mm-dd hh:MM:ss");
-                this.normaAlterar.indativo = true;
-                axios.post(url, this.normaAlterar).then(function(){
-                    vm.getNorma(); // buscar todas
+                this.acessorAlterar.dataCriacao = dateFormat(new Date(), "yyyy-mm-dd hh:MM:ss");
+                this.acessorAlterar.indativo = true;
+                axios.post(url, this.acessorAlterar).then(function(){
+                    vm.getAcessor(); // buscar todas
                     vm.isShowModalAlteracao = false;
                     vm.errors = [];
                 }).catch(function (error) {
@@ -295,52 +279,37 @@ export default {
                 });
             }
         },
-        descartarAlteracoesNorma(){
-            this.normaAlterar = {};
+        descartarAlteracoesAcessor(){
+            this.acessorAlterar = {};
         },
         validaFormulario(){
-            if (this.normaAlterar.titulo && this.normaAlterar.descricao && this.normaAlterar.url && this.normaAlterar.idRepositorio) {                
+            if (this.acessorAlterar.nome && this.acessorAlterar.descricao && this.acessorAlterar.telefone &&  ( this.acessorAlterar.cpf || this.acessorAlterar.cnpj ) ) {                
                 this.salvarAlterar();
             }
 
             this.errors = [];
 
-            if (!this.normaAlterar.titulo) {
-                this.errors.push('Informe o titulo.');
+            if (!this.acessorAlterar.nome) {
+                this.errors.push('Informe o nome.');
             }
-            if (!this.normaAlterar.descricao) {
+            if (!this.acessorAlterar.descricao) {
                 this.errors.push('Informe a descricao.');
             }
-            if (!this.normaAlterar.url) {
+            if (!this.acessorAlterar.descricao) {
                 this.errors.push('Informe a url.');
             }
-            if (!this.normaAlterar.idRepositorio) {
-                this.errors.push('Informe o repositório.');
+            if ( ( this.acessorAlterar.cpf || this.acessorAlterar.cnpj )  ) {
+                this.errors.push('Informe o cpf ou o cnpj.');
             }
-        },
-        isValidHttpUrl() {
-            var url = '';
-            if (this.normaAlterar.url){
-                try {
-                    url = new URL(this.normaAlterar.url);
-                } catch (_) {
-                    alert( "Por favor, informe uma URL válida!" );
-                    this.normaAlterar.url = '';
-                    return false;  
-                }
 
-                return url.protocol === "http:" || url.protocol === "https:";
-            }else{
-                return false;
-            }
         }
     },
     computed: {
         resultadoBusca: function(){
             if (this.txtBusca == '' || this.txtBusca == ' '){
-                return this.normas;
+                return this.acessores;
             }else{
-                return this.normas.filter(norma => norma.titulo.includes(this.txtBusca) );
+                return this.acessores.filter(acessor => acessor.nome.includes(this.txtBusca) );
             }
         }
     }
