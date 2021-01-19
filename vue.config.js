@@ -3,5 +3,10 @@
 module.exports = {
     publicPath: process.env.NODE_ENV === 'production'
       ? '/sigo_front/'
-      : '/'
+      : '/',
+     configureWebpack: {
+        devServer: {
+          historyApiFallback: true
+        }
+      }    
   }
