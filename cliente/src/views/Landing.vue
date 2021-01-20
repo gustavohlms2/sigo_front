@@ -170,7 +170,6 @@ export default {
       if (localStorage.getItem('token') === null || ( new Date() > new Date(localStorage.getItem('expiresIn')) ) ) {
         this.logout();
       }
-
       this.counterInterval = setInterval(function(){ 
         if (localStorage.getItem('token') === null || ( new Date() > new Date(localStorage.getItem('expiresIn')) ) ) {
           this.$refs.btn_deslogar.click();
