@@ -1,3 +1,5 @@
+
+/*
 const amqp = require('amqplib/callback_api');
 const bodyParser = require('body-parser');
 const express = require('express');
@@ -82,10 +84,10 @@ amqp.connect('amqp://localhost', function(error0, connection) {
         channel.sendToQueue(queue, Buffer.from(msg));
         console.log('Enviado normas');
     });
-/*    setTimeout(function() {
+    setTimeout(function() {
         connection.close();
         process.exit(0);
-    }, 10000);*/
+    }, 10000);
 });
 
 amqp.connect('amqp://localhost', function(error0, connection) {
@@ -108,10 +110,10 @@ amqp.connect('amqp://localhost', function(error0, connection) {
 
         console.log('Enviado processo');
     });
-/*    setTimeout(function() {
+    setTimeout(function() {
         connection.close();
         process.exit(0);
-    }, 10000);*/
+    }, 10000);
 });
 
 
@@ -139,3 +141,4 @@ app.listen(port, (err) => {
   if (err) return console.log(err);
   console.log('rabbit running on port ' + port);
 })
+*/
