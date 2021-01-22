@@ -8,9 +8,8 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cors());
 
-const posts = require('./routes/api/acesso');
-
-app.use('/api/acesso', posts);
+const acessos = require('./routes/api/acesso');
+app.use('/api/acesso', acessos);
 
 // Handle production
 if (process.env.NODE_ENV === 'production') {

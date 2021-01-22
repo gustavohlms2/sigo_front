@@ -9,15 +9,10 @@ const mongo_url = "mongodb+srv://auth-test:admin123@auth-test.b7mv7.mongodb.net/
 mongoose.set('useCreateIndex', true);
 mongoose.connect(mongo_url, { useNewUrlParser: true, useUnifiedTopology: true });
 
-/*
-const app = express();
-app.use(cors());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use('/', serveStatic(path.join(__dirname, '/dist')));
-*/
-    const router = express.Router();
+const amqp = require('amqplib/callback_api');
+let statusRabbit = {};
 
+    const router = express.Router();
     //routes
     router.post('/signup', (req, res, next) => {
         const newUser = new User({
@@ -72,22 +67,143 @@ app.use('/', serveStatic(path.join(__dirname, '/dist')));
     router.get('/user', (req, res, next) => {
         let token = req.headers.token; //token
         jwt.verify(token, 'secretkey', (err, decoded) => {
-        if (err) return res.status(401).json({
-            title: 'unauthorized'
-        })
-        //token is valid
-        User.findOne({ _id: decoded.userId }, (err, user) => {
-            if (err) return console.log(err)
-            return res.status(200).json({
-            title: 'user grabbed',
-            user: {
-                email: user.email,
-                name: user.name
-            }
+            if (err) return res.status(401).json({
+                title: 'unauthorized'
             })
-        })
+            //token is valid
+            User.findOne({ _id: decoded.userId }, (err, user) => {
+                if (err) return console.log(err)
+                return res.status(200).json({
+                    title: 'user grabbed',
+                    user: {
+                        email: user.email,
+                        name: user.name
+                    }
+                })
+            })
     
         })
     })
 
-module.exports = router;
+    router.get('/rabbit_norma', (req, res, next) => { 
+        console.log('Pesquisando normas novas');
+        return res.status(200).json({
+          mostra: statusRabbit['pendenciaNorma'],
+          msg: statusRabbit['newMsgNorma']
+        })
+  
+    });
+  
+    router.get('/rabbit_processo', (req, res, next) => { 
+        console.log('Pesquisando processos novos');
+        return res.status(200).json({
+            mostra: statusRabbit['pendenciaProcesso'],
+            msg: statusRabbit['newMsgProcesso']
+        })
+
+    });
+/*
+
+    amqp.connect('amqp://localhost', function(error0, connection) {
+        if (error0) {
+        throw error0;
+        }
+        connection.createChannel(function(error1, channel) {
+        if (error1) {
+            throw error1;
+        }
+        var queue = 'repositorio';
+
+        channel.assertQueue(queue, {
+            durable: false
+        });
+
+        channel.consume(queue, function(msg) {
+            console.log('Consumindo novas normas');
+            statusRabbit['pendenciaNorma'] = true;  
+            statusRabbit['newMsgNorma'] = msg.content.toString();       
+        }, {
+            noAck: true
+        });
+        
+        });
+    });
+
+    amqp.connect('amqp://localhost', function(error0, connection) {
+        if (error0) {
+        throw error0;
+        }
+        connection.createChannel(function(error1, channel) {
+        if (error1) {
+            throw error1;
+        }
+        var queue = 'processo';
+
+        channel.assertQueue(queue, {
+            durable: false
+        });
+
+        channel.consume(queue, function(msg) {
+            console.log('Consumindo alertas de processos');
+            statusRabbit['pendenciaProcesso'] = true;   
+            statusRabbit['newMsgProcesso'] = msg.content.toString();      
+        }, {
+            noAck: true
+        });
+        
+        });
+    });
+
+    amqp.connect('amqp://localhost', function(error0, connection) {
+        if (error0) {
+            throw error0;
+        }
+        console.log('Criando');
+        connection.createChannel(function(error1, channel) {
+            if (error1) {
+                throw error1;
+            }
+
+            var queue = 'repositorio';
+            var msg = 'Novas normas';
+
+            console.log('Criado normas');
+            channel.assertQueue(queue, {
+                durable: false
+            });
+            channel.sendToQueue(queue, Buffer.from(msg));
+            console.log('Enviado normas');
+        });
+        setTimeout(function() {
+            connection.close();
+            process.exit(0);
+        }, 10000);
+    });
+
+    amqp.connect('amqp://localhost', function(error0, connection) {
+        if (error0) {
+            throw error0;
+        }
+        console.log('Criando msg processo');
+        connection.createChannel(function(error1, channel) {
+            if (error1) {
+                throw error1;
+            }
+
+            var queue = 'processo';
+            var msg = 'Alerta de processo em finalização!';
+            console.log('Criado');
+            channel.assertQueue(queue, {
+                durable: false
+            });
+            channel.sendToQueue(queue, Buffer.from(msg));
+
+            console.log('Enviado processo');
+        });
+        setTimeout(function() {
+            connection.close();
+            process.exit(0);
+        }, 10000);
+    }); */
+
+module.exports = router; 
