@@ -1,5 +1,5 @@
 <template>
-   <div>
+  <div>
     <nav class="navbar" role="navigation" aria-label="main navigation">
       <div class="navbar-brand">
         <a class="navbar-item" >
@@ -11,14 +11,14 @@
           </div>
         </a>
 
-        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+        <a role="button" v-bind:class="classOpcoesMenu" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample" @click="showOpcao">
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
         </a>
       </div>
 
-      <div id="navbarBasicExample" class="navbar-menu">
+      <div id="navbarBasicExample" v-bind:class="classOpcoesMenu" class="navbar-menu">
         <div class="navbar-start">
           <div class="navbar-item has-dropdown is-hoverable">
             <a class="navbar-link">
@@ -124,7 +124,8 @@ export default {
       name: '',
       email: '',
       opcaoComponente: '',
-      counterInterval: ''
+      counterInterval: '',
+      classOpcoesMenu: ''
     }
   },
   components:{
@@ -156,6 +157,7 @@ export default {
       this.$router.push('/login');
     },
     selecionaComp: function(compEscolhido){
+      this.showOpcao();
       this.opcaoComponente = compEscolhido;
     },
     isMobile() {
@@ -165,6 +167,14 @@ export default {
         else {
             return false;
         }
+    },
+    showOpcao() {
+      this.opcaoComponente = '';
+      if( this.classOpcoesMenu ){
+        this.classOpcoesMenu = '';
+      }else{
+        this.classOpcoesMenu = 'is-active';
+      }
     },
     loginValid() {
       if (localStorage.getItem('token') === null || ( new Date() > new Date(localStorage.getItem('expiresIn')) ) ) {

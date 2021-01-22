@@ -1,9 +1,9 @@
 <template>
-  <div class="columns is-mobile ">
+  <div class="columns">
     <div class="column is-half is-offset-one-quarter ">
       <div style="margin-top:20%;padding:10px;" class="groove">
         <div class="tile" style="margin: 10px;">
-          <p class="title" style="">SIGO - IndTexBr ( Crie sua conta ) </p>
+          <p class="title" style="text-align: center;">SIGO - IndTexBr ( Crie sua conta ) </p>
         </div>
         <div class="field">
           <div class="control">

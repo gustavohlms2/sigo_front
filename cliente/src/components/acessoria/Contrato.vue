@@ -27,7 +27,7 @@
                 <table class="table" style="width: 100%;">
                     <thead>
                         <tr>
-                            <th style="width: 10%;"><abbr title="ID">Cód</abbr></th>
+                            <th style="width: 10%;" class="is-hidden-mobile"><abbr title="ID">Cód</abbr></th>
                             <th style="width: 30%;">Nome</th>
                             <th style="width: 20%;">Empresa</th>
                             <th style="width: 20%;" class="is-hidden-mobile">Valor</th>
@@ -36,7 +36,7 @@
                     </thead>
                     <tbody>
                         <tr v-for="contrato in filteredContratos" :key="contrato.id">
-                            <td>{{contrato.id}}</td>
+                            <td class="is-hidden-mobile">{{contrato.id}}</td>
                             <td>{{contrato.nome}}</td>
                             <td>{{contrato.empresa}}</td>
                             <td class="is-hidden-mobile">{{contrato.valor}}</td>

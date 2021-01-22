@@ -374,11 +374,11 @@ export default {
           
         },
         verificaFilaRabbit() {
-            /*axios.get('http://localhost:5050/rabbit_processo')
+            axios.get('/api/acesso/rabbit_processo')
             .then(res => {
                 this.hasNewProcesso = res.data.mostra;
                 this.msgNewProcesso = res.data.msg;
-            });*/
+            });
         },
         isNumber(e) {
             let char = String.fromCharCode(e.keyCode);

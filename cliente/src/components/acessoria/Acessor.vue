@@ -27,7 +27,7 @@
                 <table class="table" style="width: 100%;">
                     <thead>
                         <tr>
-                            <th style="width: 10%;"><abbr title="ID">Cód</abbr></th>
+                            <th style="width: 10%;" class="is-hidden-mobile"><abbr title="ID">Cód</abbr></th>
                             <th style="width: 30%;">Nome</th>
                             <th style="width: 20%;">Descrição</th>
                             <th style="width: 20%;" class="is-hidden-mobile">Telefone</th>
@@ -36,7 +36,7 @@
                     </thead>
                     <tbody>
                         <tr v-for="acessor in filteredAcessores" :key="acessor.id">
-                            <td>{{acessor.id}}</td>
+                            <td class="is-hidden-mobile">{{acessor.id}}</td>
                             <td>{{acessor.nome}}</td>
                             <td>{{acessor.descricao}}</td>
                             <td class="is-hidden-mobile">{{acessor.telefone}}</td>
@@ -203,23 +203,7 @@ export default {
             }      
         },
         alterar: function(){
-    /*
-    salvar:(produto)=>{
-		return http.post('produto',produto);
-  },
-    
-	atualizar:(produto)=>{
-		return http.put('produto',produto);
-  },
-
-  listar:()=>{
-		return http.get('produtos')
-  },
-    
-	apagar:(produto)=>{
-		return http.delete('produto', { data: produto })
-    }
-    */
+   
         },       
         getAcessor(){
             var vm = this;

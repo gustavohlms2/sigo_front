@@ -306,10 +306,10 @@ export default {
             }
         } ,
         verificaFilaRabbit() {
-            /*axios.get('http://localhost:5050/rabbit_norma')
+            axios.get('/api/acesso/rabbit_norma')
             .then(res => {
                 this.hasNewNorma = res.data.mostra;
-            });*/
+            });
         }
     },
     computed: {

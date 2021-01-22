@@ -27,19 +27,19 @@
                 <table class="table" style="width: 100%;">
                     <thead>
                         <tr>
-                            <th style="width: 5%;"><abbr title="ID">Cód</abbr></th>
+                            <th style="width: 5%;"  class="is-hidden-mobile"><abbr title="ID">Cód</abbr></th>
                             <th style="width: 30%;">Título</th>
-                            <th style="width: 20%;" class="is-hidden-mobile">Repositório</th>
-                            <th style="width: 20%;">Url</th>
+                            <th style="width: 20%;">Repositório</th>
+                            <th style="width: 20%;" class="is-hidden-mobile">Url</th>
                             <th style="width: 25%;">Ações</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr v-for="norma in filteredNormas" :key="norma.id">
-                            <td>{{norma.id}}</td>
+                            <td class="is-hidden-mobile">{{norma.id}}</td>
                             <td>{{norma.titulo}}</td>
-                            <td class="is-hidden-mobile">{{norma.idRepositorio}}</td>
-                            <td>{{norma.url}}</td>
+                            <td>{{norma.idRepositorio}}</td>
+                            <td class="is-hidden-mobile">{{norma.url}}</td>
                             <td>
                                 <button class="button is-warning modal-button lista" v-on:click="alterarNorma(norma); isShowModalAlteracao = true;">
                                     Alterar
