@@ -113,7 +113,7 @@
                                     <div class="select is-primary" style="width: 100%;">
                                     <select v-model="processoAlterar.idoperador" style="width: 100%;">
                                         <option v-for="operador in listaOperador" :value="operador.id" :key="operador.id">
-                                            {{ operador.nome }} 
+                                            {{ descricaoOperador(operador) }} 
                                         </option>
                                     </select>
                                     </div>
@@ -130,7 +130,7 @@
                                     <div class="select is-primary" style="width: 100%;">
                                     <select v-model="processoAlterar.idtipoprocesso" style="width: 100%;">
                                         <option v-for="tipo in listaTipoProcesso" :value="tipo.id" :key="tipo.id">
-                                            {{ tipo.nome }} 
+                                            {{ descricaoTipoProcesso(tipo) }} 
                                         </option>
                                     </select>
                                     </div>
@@ -249,6 +249,7 @@ export default {
             var url = urlAPI.OPERADOR;
             axios.get(url).then(function(r){
                 vm.listaOperador = r.data.filter(operador => operador.indativo ); 
+                vm.listaOperador[0]['composto'] = vm.listaOperador[0]['id'] + ' ' + vm.listaOperador[0]['nome'];
                 vm.errors = [];
             }).catch(function (error) {
                 vm.listaOperador = [];                    
@@ -318,7 +319,6 @@ export default {
             var dateFormat = require('dateformat');
             this.processoAlterar.status = ( this.processoAlterar.status ? true : false )
             if (this.processoAlterar.id != '' && this.processoAlterar.id != undefined ){
-                url = url + this.processoAlterar.id;                
                 this.processoAlterar.dataAlteracao = dateFormat(new Date(), "yyyy-mm-dd hh:MM:ss");
                 axios.put(url, this.processoAlterar).then(function(){                    
                     vm.getProcesso(); // buscar todas
@@ -384,7 +384,15 @@ export default {
             let char = String.fromCharCode(e.keyCode);
             if (/^[0-9]+$/.test(char)) return true;
             else e.preventDefault();
-        }
+        },
+
+        descricaoTipoProcesso: function(TipoProcessoA){
+            return TipoProcessoA.id + ' - ' + TipoProcessoA.nome;
+        },
+
+        descricaoOperador: function(OperadorA){
+            return OperadorA.id + ' - ' + OperadorA.nome;
+        },
     },
     computed: {
         resultadoBusca: function(){
@@ -393,7 +401,8 @@ export default {
             }else{
                 return this.processos.filter(processo => processo.nome.includes(this.txtBusca) );
             }
-        }
+        },
+
     }
 }
 </script>

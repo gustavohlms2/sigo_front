@@ -38,7 +38,7 @@
                         <tr v-for="norma in filteredNormas" :key="norma.id">
                             <td class="is-hidden-mobile">{{norma.id}}</td>
                             <td>{{norma.titulo}}</td>
-                            <td>{{norma.idRepositorio}}</td>
+                            <td>{{ descricaoRepositorio2(norma) }}</td>
                             <td class="is-hidden-mobile">{{norma.url}}</td>
                             <td>
                                 <button class="button is-warning modal-button lista" v-on:click="alterarNorma(norma); isShowModalAlteracao = true;">
@@ -71,7 +71,7 @@
                                     <div class="select is-primary" style="width: 100%;">
                                     <select v-model="normaAlterar.idRepositorio" style="width: 100%;">
                                         <option v-for="repositorio in listaRepositorio" :value="repositorio.id" :key="repositorio.id">
-                                            {{ repositorio.nome }} 
+                                            {{ descricaoRepositorio(repositorio) }} 
                                         </option>
                                     </select>
                                     </div>
@@ -177,8 +177,8 @@ export default {
   //      datetime: Datetime
     },  
     created: function(){      
-        this.getNorma();
         this.getRepositorio();
+        this.getNorma();
     },
     data(){
         return {
@@ -329,6 +329,12 @@ export default {
             }else{
                 return false;
             }
+        },
+        descricaoRepositorio: function(RepositorioA){
+            return RepositorioA.id + ' - ' + RepositorioA.nome;
+        },
+        descricaoRepositorio2: function(NormaA){
+            return this.listaRepositorio.filter(rep => rep.id == NormaA.idRepositorio )[0].nome;
         }
     },
     computed: {

@@ -71,7 +71,7 @@
                                     <div class="select is-primary" style="width: 100%;">
                                     <select v-model="contratoAlterar.idAcessor" style="width: 100%;">
                                         <option v-for="acessor in listaAcessor" :value="acessor.id" :key="acessor.id">
-                                            {{ acessor.nome }} 
+                                            {{ descricaoAcessor(acessor) }} 
                                         </option>
                                     </select>
                                     </div>
@@ -363,7 +363,11 @@ export default {
             }else{
                 return false;
             }
-        }
+        },
+        
+        descricaoAcessor: function(AcessorA){
+            return AcessorA.id + ' - ' + AcessorA.nome;
+        },
     },
     computed: {
         resultadoBusca: function(){
