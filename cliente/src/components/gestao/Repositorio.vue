@@ -206,7 +206,7 @@ export default {
             }).catch(function (error) {
                 vm.repositorios = [];
                 vm.filteredRepositorios = vm.repositorios;
-                vm.isConnect = true;
+                vm.isConnect = false;
                 vm.errors = ( ( error != undefined  ) ? {'Erro': error.response } : {} )
             });
         },
