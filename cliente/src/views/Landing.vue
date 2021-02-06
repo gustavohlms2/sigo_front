@@ -142,13 +142,11 @@ export default {
     this.loginValid();
   },
   mounted() {
-    if ( this.loginIsValid() ){
-      axios.get('/api/acesso/user', { headers: { token: localStorage.getItem('token')}})
-        .then(res => {
-          this.name = res.data.user.name;
-          this.email = res.data.user.email;
-        });
-    }
+    axios.get('/api/acesso/user', { headers: { token: localStorage.getItem('token')}})
+      .then(res => {
+        this.name = res.data.user.name;
+        this.email = res.data.user.email;
+      });
   },
   beforeDestroy: function(){
     clearInterval( this.counterInterval )
