@@ -142,7 +142,7 @@ export default {
     this.loginValid();
   },
   mounted() {
-    if ( loginIsValid() ){
+    if ( this.loginIsValid() ){
       axios.get('/api/acesso/user', { headers: { token: localStorage.getItem('token')}})
         .then(res => {
           this.name = res.data.user.name;
@@ -179,11 +179,11 @@ export default {
       }
     },
     loginValid() {
-      if ( loginIsValid() ) {
+      if ( this.loginIsValid() ) {
         this.logout();
       }
       this.counterInterval = setInterval(function(){ 
-        if ( loginIsValid() ) {
+        if ( this.loginIsValid() ) {
           this.$refs.btn_deslogar.click();
         }
       }.bind(this), 300000);
