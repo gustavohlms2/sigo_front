@@ -142,11 +142,13 @@ export default {
     this.loginValid();
   },
   mounted() {
-    axios.get('/api/acesso/user', { headers: { token: localStorage.getItem('token')}})
-      .then(res => {
-        this.name = res.data.user.name;
-        this.email = res.data.user.email;
-      });
+    if ( loginIsValid() ){
+      axios.get('/api/acesso/user', { headers: { token: localStorage.getItem('token')}})
+        .then(res => {
+          this.name = res.data.user.name;
+          this.email = res.data.user.email;
+        });
+    }
   },
   beforeDestroy: function(){
     clearInterval( this.counterInterval )
@@ -177,14 +179,17 @@ export default {
       }
     },
     loginValid() {
-      if (localStorage.getItem('token') === null || ( new Date() > new Date(localStorage.getItem('expiresIn')) ) ) {
+      if ( loginIsValid() ) {
         this.logout();
       }
       this.counterInterval = setInterval(function(){ 
-        if (localStorage.getItem('token') === null || ( new Date() > new Date(localStorage.getItem('expiresIn')) ) ) {
+        if ( loginIsValid() ) {
           this.$refs.btn_deslogar.click();
         }
       }.bind(this), 300000);
+    },
+    loginIsValid(){
+      return (localStorage.getItem('token') === null || ( new Date() > new Date(localStorage.getItem('expiresIn')) ) )
     }    
   }
 }

@@ -15,6 +15,6 @@ export default new Router({
     { path: '/', component: Landing },
     { path: '/signup', component: Signup },
     { path: '/login', component: Login },
-    { path: '/*', component: Login }
+    { path: '/*', component: Landing }
   ]
 });
