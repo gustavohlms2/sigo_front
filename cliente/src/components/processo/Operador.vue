@@ -214,7 +214,7 @@ export default {
             }).catch(function (error) {
                 vm.operadors = [];
                 vm.filteredOperadors = vm.operadors;
-                vm.isConnect = ( ( error != undefined  ) ? ( error.message == 'Network Error' ? false : true ) : true );
+                vm.isConnect = false;
                 vm.errors = ( ( error != undefined  ) ? {'Erro': error.response } : {} )
             });
         },

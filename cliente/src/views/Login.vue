@@ -57,7 +57,7 @@ export default {
         }, err => {
           console.log(err);
           this.error = err.response.data.error
-          // this.$router.push('/'); // comentar
+          //this.$router.push('/'); // comentar
         })
     },
     validaEmail() {

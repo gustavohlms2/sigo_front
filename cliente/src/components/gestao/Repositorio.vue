@@ -36,7 +36,7 @@
                             <th style="width: 5%;"><abbr title="ID">Cód</abbr></th>
                             <th style="width: 30%;">Nome</th>
                             <th style="width: 20%;" class="is-hidden-mobile">Repositório</th>
-                            <th style="width: 20%;">Url</th>
+                            <th style="width: 20%;" class="is-hidden-mobile">Url</th>
                             <th style="width: 25%;">Ações</th>
                         </tr>
                     </thead>
@@ -45,7 +45,7 @@
                             <td>{{repositorio.id}}</td>
                             <td>{{repositorio.nome}}</td>
                             <td class="is-hidden-mobile">{{repositorio.descricao}}</td>
-                            <td>{{repositorio.url}}</td>
+                            <td class="is-hidden-mobile">{{repositorio.url}}</td>
                             <td>
                                 <button class="button is-warning modal-button lista" v-on:click="alterarRepositorio(repositorio); isShowModalAlteracao = true;">
                                     Alterar
@@ -206,7 +206,7 @@ export default {
             }).catch(function (error) {
                 vm.repositorios = [];
                 vm.filteredRepositorios = vm.repositorios;
-                vm.isConnect = ( ( error != undefined  ) ? ( error.message == 'Network Error' ? false : true ) : true );
+                vm.isConnect = true;
                 vm.errors = ( ( error != undefined  ) ? {'Erro': error.response } : {} )
             });
         },

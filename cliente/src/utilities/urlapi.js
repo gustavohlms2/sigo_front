@@ -1,15 +1,15 @@
-const REPOSITORIO = "https://sigo-back-gestao.herokuapp.com/api/repositorio/";
-const NORMA = "https://sigo-back-gestao.herokuapp.com/api/norma/";
-const ACESSOR = "https://sigo-back-acessoria.herokuapp.com/api/acessor/";
-const CONTRATO = "https://sigo-back-acessoria.herokuapp.com/api/contrato/";
-const OPERADOR = "https://sigo-back-processo.herokuapp.com/api/operador/";
-const PROCESSO = "https://sigo-back-processo.herokuapp.com/api/processo/";
-const TIPO_PROCESSO = "https://sigo-back-processo.herokuapp.com/api/tipo_processo/";
+const REPOSITORIO = ( process.env.NODE_ENV === 'production' ? "https://sigo-back-gestao.herokuapp.com/api/repositorio/" : "http://localhost:5050/api/repositorio/" );
+const NORMA = ( process.env.NODE_ENV === 'production' ? "https://sigo-back-gestao.herokuapp.com/api/norma/"  : "http://localhost:5050/api/norma/" );
+const ASSESSOR = ( process.env.NODE_ENV === 'production' ? "https://sigo-back-acessoria.herokuapp.com/api/acessor/" : "http://localhost:5050/api/acessor/" );
+const CONTRATO = ( process.env.NODE_ENV === 'production' ? "https://sigo-back-acessoria.herokuapp.com/api/contrato/" : "http://localhost:5050/api/contrato/" );
+const OPERADOR = ( process.env.NODE_ENV === 'production' ? "https://sigo-back-processo.herokuapp.com/api/operador/" : "http://localhost:5050/api/operador/" );
+const PROCESSO = ( process.env.NODE_ENV === 'production' ? "https://sigo-back-processo.herokuapp.com/api/processo/" : "http://localhost:5050/api/processo/" );
+const TIPO_PROCESSO = ( process.env.NODE_ENV === 'production' ? "https://sigo-back-processo.herokuapp.com/api/tipo_processo/" : "http://localhost:5050/api/tipo_processo/" );
 
 const urlAPI = {
   REPOSITORIO: REPOSITORIO,
   NORMA: NORMA,
-  ACESSOR: ACESSOR,
+  ASSESSOR: ASSESSOR,
   CONTRATO: CONTRATO,
   OPERADOR: OPERADOR,
   PROCESSO: PROCESSO,

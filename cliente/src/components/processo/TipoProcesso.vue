@@ -172,7 +172,7 @@ export default {
             }).catch(function (error) {
                 vm.tipoprocessos = [];
                 vm.filteredTipoprocessos = vm.tipoprocessos;
-                vm.isConnect = ( ( error != undefined  ) ? ( error.message == 'Network Error' ? false : true ) : true );
+                vm.isConnect = false;
                 vm.errors = ( ( error != undefined  ) ? {'Erro': error.response } : {} )
             });
         },

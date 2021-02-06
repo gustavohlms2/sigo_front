@@ -230,7 +230,7 @@ export default {
             }).catch(function (error) {
                 vm.normas = [];
                 vm.filteredNormas = vm.normas;
-                vm.isConnect = ( ( error != undefined  ) ? ( error.message == 'Network Error' ? false : true ) : true );
+                vm.isConnect = false;
                 vm.errors = ( ( error != undefined  ) ? {'Erro': error.response } : {} )
             });
         },

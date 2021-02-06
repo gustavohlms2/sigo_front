@@ -36,12 +36,12 @@
           
           <div class="navbar-item has-dropdown is-hoverable">
             <a class="navbar-link">
-              Acessoria
+              Assessoria
             </a>
 
             <div class="navbar-dropdown">
               <a class="navbar-item" @click="selecionaComp('A1')">
-                Acessor
+                Assessor
               </a>
               <a class="navbar-item" @click="selecionaComp('A2')">
                 Contrato
@@ -89,7 +89,7 @@
     </div>
 
     <div v-else-if="this.opcaoComponente == 'A1'">
-      <Acessor />
+      <Assessor />
     </div>
     <div v-else-if="this.opcaoComponente == 'A2'">
       <Contrato />
@@ -111,8 +111,8 @@
 import axios from 'axios';
 import Norma from '../components/gestao/Norma';
 import Repositorio from '../components/gestao/Repositorio';
-import Acessor from '../components/acessoria/Acessor';
-import Contrato from '../components/acessoria/Contrato';
+import Assessor from '../components/assessoria/Assessor';
+import Contrato from '../components/assessoria/Contrato';
 import Operador from '../components/processo/Operador';
 import Processo from '../components/processo/Processo';
 import TipoProcesso from '../components/processo/TipoProcesso';
@@ -131,7 +131,7 @@ export default {
   components:{
     Norma,
     Repositorio,
-    Acessor,
+    Assessor,
     Contrato,
     Operador,
     Processo,
