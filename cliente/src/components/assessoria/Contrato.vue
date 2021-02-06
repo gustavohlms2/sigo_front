@@ -236,7 +236,7 @@ export default {
         },
         getAssessor(){
             var vm = this;
-            var url = urlAPI.Assessor;
+            var url = urlAPI.ASSESSOR;
             axios.get(url).then(function(r){
                 vm.listaAssessor = r.data.filter(assessor => assessor.indativo );
                 vm.errors = [];
