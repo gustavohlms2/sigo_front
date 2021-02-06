@@ -220,7 +220,7 @@ export default {
         },
         getExcluir: function(){
             var vm = this;
-            var url = urlAPI.AssessoR ; // + this.idExclusao;
+            var url = urlAPI.ASSESSOR ; // + this.idExclusao;
             var assessorAlterar = this.filteredAssessores.filter(assessor => assessor.id == this.idExclusao )[0];
             //axios.delete(url).then(function(r){
             axios.delete(url, { data:  assessorAlterar } ).then(function(r){
@@ -248,7 +248,7 @@ export default {
         },
         salvarAlterar(){
             var vm = this;
-            var url = urlAPI.AssessoR;
+            var url = urlAPI.ASSESSOR;
             var dateFormat = require('dateformat');
             if (this.assessorAlterar.id != '' && this.assessorAlterar.id != undefined ){
                 //url = url ; + this.assessorAlterar.id;
