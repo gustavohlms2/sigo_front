@@ -64,14 +64,14 @@
 
                         <div class="field is-horizontal">
                             <div class="field-label is-contratol">
-                                <label class="label">Acessor</label>
+                                <label class="label">Assessor</label>
                             </div>
                             <div class="field-body">
                                 <div style="width: 100%;">
                                     <div class="select is-primary" style="width: 100%;">
-                                    <select v-model="contratoAlterar.idAcessor" style="width: 100%;">
-                                        <option v-for="acessor in listaAcessor" :value="acessor.id" :key="acessor.id">
-                                            {{ descricaoAcessor(acessor) }} 
+                                    <select v-model="contratoAlterar.idAssessor" style="width: 100%;">
+                                        <option v-for="assessor in listaAssessor" :value="assessor.id" :key="assessor.id">
+                                            {{ descricaoAssessor(assessor) }} 
                                         </option>
                                     </select>
                                     </div>
@@ -202,14 +202,14 @@ export default {
     },  
     created: function(){       
         this.getContrato();
-        this.getAcessor();        
+        this.getAssessor();        
     },
     data(){
         return {
             contratos: [],
             filteredContratos: [],
             contratoAlterar: {},
-            listaAcessor: [],
+            listaAssessor: [],
             txtBusca: '',
             idExclusao: '',
             isShowModalAlteracao: false,
@@ -234,14 +234,14 @@ export default {
         alterar: function(){
 
         },
-        getAcessor(){
+        getAssessor(){
             var vm = this;
-            var url = urlAPI.ACESSOR;
+            var url = urlAPI.Assessor;
             axios.get(url).then(function(r){
-                vm.listaAcessor = r.data.filter(acessor => acessor.indativo );
+                vm.listaAssessor = r.data.filter(assessor => assessor.indativo );
                 vm.errors = [];
             }).catch(function (error) {
-                vm.listaAcessor = [];                    
+                vm.listaAssessor = [];                    
                 vm.errors = {'Erro': error.response };                
             }).finally(function () {
                 
@@ -256,7 +256,7 @@ export default {
             }).catch(function (error) {
                 vm.contratos = [];
                 vm.filteredContratos = vm.contratos;
-                vm.isConnect = ( ( error != undefined  ) ? ( error.message == 'Network Error' ? false : true ) : true );
+                vm.isConnect = false;
                 vm.errors = ( ( error != undefined  ) ? {'Erro': error.response } : {} )
             });
         },
@@ -322,7 +322,7 @@ export default {
             this.contratoAlterar = {};
         },
         validaFormulario(){
-            if (this.contratoAlterar.nome && this.contratoAlterar.empresa && this.contratoAlterar.descricao && this.contratoAlterar.url && this.contratoAlterar.valor && this.contratoAlterar.idAcessor ) {                
+            if (this.contratoAlterar.nome && this.contratoAlterar.empresa && this.contratoAlterar.descricao && this.contratoAlterar.url && this.contratoAlterar.valor && this.contratoAlterar.idAssessor ) {                
                 this.salvarAlterar();
             }
 
@@ -343,8 +343,8 @@ export default {
             if (!this.contratoAlterar.valor) {
                 this.errors.push('Informe o valor.');
             }
-            if (!this.contratoAlterar.idAcessor) {
-                this.errors.push('Informe o acessor.');
+            if (!this.contratoAlterar.idAssessor) {
+                this.errors.push('Informe o assessor.');
             }
 
         },
@@ -365,8 +365,8 @@ export default {
             }
         },
         
-        descricaoAcessor: function(AcessorA){
-            return AcessorA.id + ' - ' + AcessorA.nome;
+        descricaoAssessor: function(AssessorA){
+            return AssessorA.id + ' - ' + AssessorA.nome;
         },
     },
     computed: {
