@@ -376,8 +376,8 @@ export default {
         verificaFilaRabbit() {
             axios.get('/api/acesso/rabbit_processo')
             .then(res => {
-                this.hasNewProcesso = res.data.mostra;
-                this.msgNewProcesso = res.data.msg;
+                this.hasNewProcesso = ( ( res.data.mostra == undefined ) ? false : res.data.mostra  ) ;
+                this.msgNewProcesso = ( ( res.data.msg == undefined ) ? '' : res.data.msg  ) ;
             });
         },
         isNumber(e) {

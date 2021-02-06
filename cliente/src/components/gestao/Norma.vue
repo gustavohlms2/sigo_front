@@ -334,7 +334,8 @@ export default {
             return RepositorioA.id + ' - ' + RepositorioA.nome;
         },
         descricaoRepositorio2: function(NormaA){
-            return this.listaRepositorio.filter(rep => rep.id == NormaA.idRepositorio )[0].nome;
+            var repGrid = this.listaRepositorio.filter(rep => rep.id == NormaA.idRepositorio )[0]
+            return ( repGrid != undefined ? repGrid.nome : '' );
         }
     },
     computed: {

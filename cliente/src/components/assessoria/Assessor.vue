@@ -208,7 +208,7 @@ export default {
         getAssessor(){
             var vm = this;
             axios.get(urlAPI.ASSESSOR)
-            .then(res => {
+            .then(r => {
                 vm.assessores = r.data.filter(assessor => assessor.indativo ); 
                 vm.filteredAssessores = vm.assessores;
             }).catch(function (error) {
