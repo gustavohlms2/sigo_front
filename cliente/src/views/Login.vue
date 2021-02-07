@@ -46,6 +46,7 @@ export default {
         email: this.email,
         password: this.password
       }
+      this.password = '';
       axios.post('/api/acesso/login', user)
         .then(res => {
           //if successfull
