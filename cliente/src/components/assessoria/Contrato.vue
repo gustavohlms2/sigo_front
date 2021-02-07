@@ -69,7 +69,7 @@
                             <div class="field-body">
                                 <div style="width: 100%;">
                                     <div class="select is-primary" style="width: 100%;">
-                                    <select v-model="contratoAlterar.idAssessor" style="width: 100%;">
+                                    <select v-model="contratoAlterar.idAcessor" style="width: 100%;">
                                         <option v-for="assessor in listaAssessor" :value="assessor.id" :key="assessor.id">
                                             {{ descricaoAssessor(assessor) }} 
                                         </option>
@@ -322,7 +322,7 @@ export default {
             this.contratoAlterar = {};
         },
         validaFormulario(){
-            if (this.contratoAlterar.nome && this.contratoAlterar.empresa && this.contratoAlterar.descricao && this.contratoAlterar.url && this.contratoAlterar.valor && this.contratoAlterar.idAssessor ) {                
+            if (this.contratoAlterar.nome && this.contratoAlterar.empresa && this.contratoAlterar.descricao && this.contratoAlterar.url && this.contratoAlterar.valor && this.contratoAlterar.idAcessor ) {                
                 this.salvarAlterar();
             }
 
@@ -343,7 +343,7 @@ export default {
             if (!this.contratoAlterar.valor) {
                 this.errors.push('Informe o valor.');
             }
-            if (!this.contratoAlterar.idAssessor) {
+            if (!this.contratoAlterar.idAcessor) {
                 this.errors.push('Informe o assessor.');
             }
 
